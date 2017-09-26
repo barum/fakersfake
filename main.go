@@ -10,7 +10,9 @@ import (
 
 func main() {
 
-	fileWriterPTR, ferr := os.Create("testdata")
+	currentDir, _ := os.Getwd()
+	fmt.Println(currentDir)
+	fileWriterPTR, ferr := os.Create(currentDir + "/testdata")
 	if ferr != nil {
 		fmt.Println("file creation error", ferr)
 	}
@@ -25,7 +27,7 @@ func main() {
 	for i := 0; i < 10; i++ {
 
 		ssn := fake.DigitsN(9)
-		phone := fake.DigitsN(3) + "-" + fake.DigitsN(3) + "-" + fake.DigitsN(4)
+		phone := fake.DigitsN(9)
 		city := fake.City()
 		state := fake.State()
 		address := fake.StreetAddress()
@@ -36,7 +38,6 @@ func main() {
 		}
 
 		lastname := fake.LastName()
-
 		fmt.Fprintf(fileWriterPTR, "%s,%s,%s,%s,%s,%s,%s\n", ssn, phone, city, state, address, firstname, lastname)
 	}
 
